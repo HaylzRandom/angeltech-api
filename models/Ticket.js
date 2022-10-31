@@ -8,6 +8,11 @@ const ticketSchema = new mongoose.Schema(
 			required: true,
 			ref: 'User',
 		},
+		category: {
+			type: String,
+			required: true,
+			default: 'Laptop',
+		},
 		title: {
 			type: String,
 			required: true,

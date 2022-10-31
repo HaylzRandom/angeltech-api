@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('express-async-errors');
 
 const express = require('express');
 const app = express();
@@ -36,7 +37,9 @@ app.use(cookieParser());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', require('./routes/root'));
+app.use('/users', require('./routes/userRoutes.js'));
 
 // Error Page
 app.all('*', (req, res) => {

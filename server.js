@@ -2,9 +2,28 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// Middleware
+const { logger } = require('./middleware/logger');
+const errorHandler = require('./middleware/errorHandler');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
+
 const PORT = process.env.PORT || 3500;
 
-app.use('/', express.static(path.join(__dirname, '/public')));
+// Log events - middleware
+app.use(logger);
+
+// Allow requests from specific origins - middleware
+app.use(cors(corsOptions));
+
+// Ability to parse json - middleware
+app.use(express.json());
+
+// Ability to parse cookies - middleware
+app.use(cookieParser());
+
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/root'));
 
@@ -20,5 +39,8 @@ app.all('*', (req, res) => {
 		res.type('txt').send('404 Not Found');
 	}
 });
+
+// Log errors - middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

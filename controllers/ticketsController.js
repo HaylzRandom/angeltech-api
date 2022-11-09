@@ -8,33 +8,34 @@ const bcrypt = require('bcrypt');
 const getAllTickets = async (req, res) => {
 	// Find all tickets
 	const tickets = await Ticket.find().lean().exec();
+	/* console.log(tickets); */
 
 	// No tickets exists
 	if (!tickets?.length)
 		return res.status(400).json({ mesage: 'No tickets can be found' });
 
-	const ticketsWithCustomer = await Promise.all(
+	const ticketsWithNames = await Promise.all(
 		tickets.map(async (ticket) => {
-			const user = await User.findById(ticket.customer).lean().exec();
-			return { ...ticket, customer: user.username };
-		})
-	);
-	const ticketsWithAssigned = await Promise.all(
-		ticketsWithCustomer.map(async (ticket) => {
-			let user;
+			console.log(ticket.customer);
+			const customer = await User.findById(ticket.customer).lean().exec();
+			/* console.log('Customer', customer); */
 
+			let assigned = null;
 			if (ticket?.assigned) {
-				user = await User.findById(ticket.assigned).lean().exec();
-			} else {
-				user = '';
+				assigned = await User.findById(ticket.assigned).lean().exec();
+				/* console.log('Assigned', assigned); */
 			}
 
-			return { ...ticket, assigned: user?.username };
+			return {
+				...ticket,
+				customerName: customer.username,
+				assignedName: assigned?.username,
+			};
 		})
 	);
 
 	// Return tickets
-	res.json(ticketsWithAssigned);
+	res.json(ticketsWithNames);
 };
 
 // @desc Create New Ticket
@@ -42,6 +43,7 @@ const getAllTickets = async (req, res) => {
 // @access Private
 const createNewTicket = async (req, res) => {
 	const { customer, title, text, category, assigned } = req.body;
+	console.table([customer, title, text, category, assigned]);
 
 	// Confirm data
 	if (!customer || !title || !category || !text) {
@@ -50,14 +52,16 @@ const createNewTicket = async (req, res) => {
 		});
 	}
 
-	const user = await User.findById(customer).lean().exec();
+	const customerID = await User.findById(customer).lean().exec();
+
+	const assignedID = await User.findById(assigned).lean().exec();
 
 	const ticketObject = {
-		customer: user._id,
+		customer: customerID._id,
 		title,
 		text,
 		category,
-		assigned,
+		assigned: assignedID?._id,
 	};
 
 	// Create and store new ticket
@@ -77,7 +81,6 @@ const createNewTicket = async (req, res) => {
 // @access Private
 const updateTicket = async (req, res) => {
 	const { id, customer, category, title, text, assigned, completed } = req.body;
-
 	// Confirm data
 	if (
 		!id ||
@@ -102,22 +105,27 @@ const updateTicket = async (req, res) => {
 
 	// Check if assigned field is empty
 	if (assigned === '' || !assigned) {
-		ticket.customer = customer;
-		ticket.category = category;
-		ticket.title = title;
-		ticket.text = text;
-		ticket.assigned = null;
-		ticket.completed = completed;
-	} else {
-		const user = await User.findById(assigned).lean().exec();
+		/* const customer = await User.findById(customer).lean().exec(); */
 
 		ticket.customer = customer;
 		ticket.category = category;
 		ticket.title = title;
 		ticket.text = text;
-		ticket.assigned = user._id;
+		ticket.assigned = undefined;
+		ticket.completed = completed;
+	} else {
+		/* const customer = await User.findById(customer).lean().exec();
+		const assigned = await User.findById(assigned).lean().exec(); */
+
+		ticket.customer;
+		ticket.category = category;
+		ticket.title = title;
+		ticket.text = text;
+		ticket.assigned = assigned;
 		ticket.completed = completed;
 	}
+
+	console.log(ticket);
 
 	const updatedTicket = await ticket.save();
 

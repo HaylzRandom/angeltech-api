@@ -16,7 +16,7 @@ const getAllTickets = async (req, res) => {
 
 	const ticketsWithNames = await Promise.all(
 		tickets.map(async (ticket) => {
-			console.log(ticket.customer);
+			/* console.log(ticket.customer); */
 			const customer = await User.findById(ticket.customer).lean().exec();
 			/* console.log('Customer', customer); */
 
@@ -125,7 +125,7 @@ const updateTicket = async (req, res) => {
 		ticket.completed = completed;
 	}
 
-	console.log(ticket);
+/* 	console.log(ticket); */
 
 	const updatedTicket = await ticket.save();
 

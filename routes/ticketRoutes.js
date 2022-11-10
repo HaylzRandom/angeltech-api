@@ -4,6 +4,11 @@ const router = express.Router();
 // Controllers
 const ticketsController = require('../controllers/ticketsController');
 
+// Middlewares
+const verifyJWT = require('../middleware/verifyJWT');
+
+router.use(verifyJWT);
+
 router
 	.route('/')
 	.get(ticketsController.getAllTickets)

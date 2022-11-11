@@ -68,7 +68,7 @@ const refresh = async (req, res) => {
 	const cookies = req.cookies;
 
 	// If no cookie with 'jwt' exists
-	if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorised 1' });
+	if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorised' });
 
 	const refreshToken = cookies.jwt;
 
@@ -84,8 +84,7 @@ const refresh = async (req, res) => {
 			}).exec();
 
 			// If user not found
-			if (!foundUser)
-				return res.status(401).json({ message: 'Unauthorised 2' });
+			if (!foundUser) return res.status(401).json({ message: 'Unauthorised' });
 
 			const accessToken = jwt.sign(
 				{

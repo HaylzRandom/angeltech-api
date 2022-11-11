@@ -12,7 +12,7 @@ const errorHandler = (error, req, res, next) => {
 
 	res.status(status);
 
-	res.json({ message: error.message });
+	res.json({ message: error.message, isError: true });
 };
 
 module.exports = errorHandler;

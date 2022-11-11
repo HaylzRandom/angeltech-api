@@ -34,8 +34,7 @@ const createNewUser = async (req, res) => {
 		!roles.length
 	) {
 		return res.status(400).json({
-			message:
-				'Username, Password, Email Address, First Name, Last Name and Roles are required! ',
+			message: 'All fields are required! ',
 		});
 	}
 

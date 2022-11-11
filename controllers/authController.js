@@ -68,7 +68,7 @@ const refresh = async (req, res) => {
 	const cookies = req.cookies;
 
 	// If no cookie with 'jwt' exists
-	if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorised' });
+	if (!cookies?.jwt) return res.status(401).json({ message: 'Unauthorised 1' });
 
 	const refreshToken = cookies.jwt;
 
@@ -84,7 +84,8 @@ const refresh = async (req, res) => {
 			}).exec();
 
 			// If user not found
-			if (!foundUser) return res.status(401).json({ message: 'Unauthorised' });
+			if (!foundUser)
+				return res.status(401).json({ message: 'Unauthorised 2' });
 
 			const accessToken = jwt.sign(
 				{
@@ -110,7 +111,7 @@ const logout = (req, res) => {
 
 	if (!cookies?.jwt) return res.sendStatus(204); // No Content
 
-    // Remove cookie
+	// Remove cookie
 	res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 
 	res.json({ message: 'Cookie cleared' });

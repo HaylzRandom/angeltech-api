@@ -125,7 +125,7 @@ const updateTicket = async (req, res) => {
 		ticket.completed = completed;
 	}
 
-/* 	console.log(ticket); */
+	/* 	console.log(ticket); */
 
 	const updatedTicket = await ticket.save();
 

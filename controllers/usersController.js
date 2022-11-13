@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const Ticket = require('../models/ticket');
+const Ticket = require('../models/Ticket');
 const bcrypt = require('bcrypt');
 
 // @desc Get all users

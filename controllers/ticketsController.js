@@ -12,7 +12,7 @@ const getAllTickets = async (req, res) => {
 
 	// No tickets exists
 	if (!tickets?.length)
-		return res.status(400).json({ mesage: 'No tickets can be found' });
+		return res.status(400).json({ message: 'No tickets can be found' });
 
 	const ticketsWithNames = await Promise.all(
 		tickets.map(async (ticket) => {

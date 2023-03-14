@@ -2,22 +2,19 @@
 
 ## Table of Contents <!-- omit in toc -->
 
-- [About](#about)
-- [Technologies Used](#technologies-used)
+- [Description](#description)
+- [Technologies](#technologies)
 - [Linked Repositories](#linked-repositories)
-- [Author](#author)
+- [Packages](#packages)
 - [Roadmap](#roadmap)
 - [Demo](#demo)
 - [Screenshots](#screenshots)
 
-## About
+## Description
 
-This project was built as part of my on-going training utilising the MERN stack.
+A helpdesk application that allows users to login to an account, create tickets for technical issues, update tickets and admin users can create, delete and manage other user accounts. Client-side created using React. Server-side created using MongoDB for databse, Express.js and Node.js for API.
 
-The inspiration for this project came from using helpdesk systems many years ago
-and wanting to replicate the systems and if possible improve upon them
-
-## Technologies Used
+## Technologies
 
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
@@ -35,9 +32,24 @@ and wanting to replicate the systems and if possible improve upon them
   [AngelTech Frontend](https://github.com/HaylzRandom/angeltech-frontend)
 - Backend: [AngelTech API](https://github.com/HaylzRandom/angeltech-api)
 
-## Author
+## Packages
 
-[Hayley McCafferty](https://github.com/haylzrandom)
+<table>
+    <tr><th>Name</th><th>Description</th></tr>
+    <tr><td>bcrypt</td><td>A package library that us used to help has passwords.</td></tr>
+    <tr><td>cookie-parser</td><td>Middleware used to parse cookies that are attached to a request made by the client to the server.</td></tr>
+    <tr><td>cors</td><td>Middleware used to allow requests from specific origins as stated by the application.</td></tr>
+    <tr><td>date-fns</td><td>Package used to manipulate dates into different formats.</td></tr>
+    <tr><td>dotenv</td><td>Used to load API keys and MongoDB connection string from .env file.</td></tr>
+    <tr><td>express</td><td>Web framework used to help create API.</td></tr>
+    <tr><td>express-async-errors</td><td>Used to catch errors at runtime without excessive use of try/catch blocks in async functions.</td></tr>
+    <tr><td>express-rate-limit</td><td>Rate-limiting middleware for express. Used to limit repeated requests to API endpoints and in the current project related to login attempts.</td></tr>
+    <tr><td>jsonwebtoken</td><td>Package implementation of JSON Web Token (JWT). Used to maintain login state of an account.</td></tr>
+    <tr><td>mongoose</td><td>Package that provides a straight-forward, schema based solution to model application data for MongoDB. In this application is is used to connect to MongoDB instance and creating the models for Tickets and Users.</td></tr>
+    <tr><td>mongoose-sequence</td><td>Package to create fields in a Mongoose model that will autoincrement the value (e.g ID for a User or for a Ticket).</td></tr>
+    <tr><td>uuid</td><td>Package to create a random UUID.</td></tr>
+</table>
+
 
 ## Roadmap
 

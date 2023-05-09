@@ -59,7 +59,7 @@ A helpdesk application that allows users to login to an account, create tickets 
 - [ ] Research if a cleaner method for pre-populating customer exists when
       creating ticket
 - [ ] Set last logged in date and time on user dashboard
-- [ ] Create a custom loading spinner
+- [x] Create a custom loading spinner
 - [ ] Redesign website layout with new styles
 - [ ] Add a note system to tickets
 - [ ] Allow users to alter their own passwords (Only Admins and Managers can
@@ -77,7 +77,7 @@ Demo Gif
 
 ## Screenshots
 
-<p align="center"> 
+<p align="center">
     <table>
         <thead>General</thead>
         <tr>
@@ -91,7 +91,7 @@ Demo Gif
     </table>
 </p>
 
-<p align="center"> 
+<p align="center">
     <table>
         <thead>Admin Pages</thead>
         <tr>
@@ -110,7 +110,7 @@ Demo Gif
     </table>
 </p>
 
-<p align="center"> 
+<p align="center">
     <table>
         <thead>Customer Pages</thead>
         <tr>

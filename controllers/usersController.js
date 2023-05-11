@@ -162,7 +162,12 @@ const deleteUser = async (req, res) => {
 			.status(400)
 			.json({ message: 'User still has tickets assigned to them' });
 
-	// TODO: Check if user has open tickets they created still attached to them
+	const openTicket = await Ticket.find({ customer: id });
+
+	if (openTicket)
+		return res
+			.status(400)
+			.json({ message: 'User still has open tickets they created' });
 
 	const user = await User.findById(id).exec();
 
@@ -170,7 +175,7 @@ const deleteUser = async (req, res) => {
 	if (!user) return res.status(400).json({ message: 'User not found' });
 
 	// Delete User
-	const result = await user.deleteOne();
+	//const result = await user.deleteOne();
 
 	const reply = `Username ${result.username} with ID ${result._id} deleted!`;
 

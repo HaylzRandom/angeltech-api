@@ -29,21 +29,31 @@ const login = async (req, res) => {
 	// If password do not match
 	if (!match) return res.status(401).json({ message: 'Unauthorised' });
 
+	foundUser.lastLogin = Date.now();
+
+	await foundUser.save();
+
 	// Create accessToken
 	const accessToken = jwt.sign(
 		{
 			UserInfo: {
+				id: foundUser.id,
 				username: foundUser.username,
 				roles: foundUser.roles,
+				lastLogin: foundUser.lastLogin,
 			},
 		},
 		process.env.ACCESS_TOKEN_SECRET,
-		{ expiresIn: '15m' }
+		{ expiresIn: '30m' }
 	);
 
 	// Create refreshToken
 	const refreshToken = jwt.sign(
-		{ username: foundUser.username },
+		{
+			username: foundUser.username,
+			roles: foundUser.roles,
+			lastLogin: foundUser.lastLogin,
+		},
 		process.env.REFRESH_TOKEN_SECRET,
 		{ expiresIn: '7d' }
 	);
@@ -89,12 +99,14 @@ const refresh = async (req, res) => {
 			const accessToken = jwt.sign(
 				{
 					UserInfo: {
+						id: foundUser.id,
 						username: foundUser.username,
 						roles: foundUser.roles,
+						lastLogin: foundUser.lastLogin,
 					},
 				},
 				process.env.ACCESS_TOKEN_SECRET,
-				{ expiresIn: '15m' }
+				{ expiresIn: '30m' }
 			);
 
 			res.json({ accessToken });

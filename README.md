@@ -53,12 +53,14 @@ A helpdesk application that allows users to login to an account, create tickets 
 
 ## Roadmap
 
-- [ ] When deleting a user, checked if there are any open tickets attached to
+- [x] When deleting a user, checked if there are any open tickets attached to
       them
+- [x] Redirect user if they should have have access to ticket
+- [ ] Redirect user if they should have have access to profile
 - [ ] When creating a customer user, add a company to their account
 - [ ] Research if a cleaner method for pre-populating customer exists when
       creating ticket
-- [ ] Set last logged in date and time on user dashboard
+- [x] Set last logged in date and time on user dashboard
 - [x] Create a custom loading spinner
 - [ ] Redesign website layout with new styles
 - [ ] Add a note system to tickets
